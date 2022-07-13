@@ -22,11 +22,11 @@ apt-get -y update 1> /dev/null
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade 1> /dev/null
 apt-get -y install linux-headers-$(uname -r) 1> /dev/null # Headers needed for Guest Additions
 
-echo "Install the desktop..."
+# echo "Install the desktop..."
 # Ubuntu Desktop
-apt-get -y dist-upgrade 1> /dev/null
-apt-get -y install --no-install-recommends ubuntu-desktop 1> /dev/null
-apt-get -y install indicator-session gnome-terminal firefox unity-lens-applications 1> /dev/null 
+# apt-get -y dist-upgrade 1> /dev/null
+# apt-get -y install --no-install-recommends ubuntu-desktop 1> /dev/null
+# apt-get -y install indicator-session gnome-terminal firefox unity-lens-applications 1> /dev/null 
 
 echo "Update locale..."
 locale-gen --purge en_US.UTF-8 1> /dev/null
@@ -49,19 +49,19 @@ grep 'allow-guest=false' /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf &> /de
   [ -e /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf ] && \
   echo 'allow-guest=false' >> /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf 
 # Hide vagrant user from login screen
-echo "[User]" >> /var/lib/AccountsService/users/vagrant
-echo "SystemAccount=true" >> /var/lib/AccountsService/users/vagrant
+# echo "[User]" >> /var/lib/AccountsService/users/vagrant
+# echo "SystemAccount=true" >> /var/lib/AccountsService/users/vagrant
 # Add nos3 user to vboxsf group
-usermod -a -G vboxsf nos3
+# usermod -a -G vboxsf nos3
 # Add nos3 user to dialout group
-usermod -a -G dialout nos3
+# usermod -a -G dialout nos3
 
 echo "Preferences..."
 # Launch executable shell scripts instead of display 
 echo "gsettings set org.gnome.nautilus.preferences executable-text-activation launch" >> /etc/profile.d/all_users.sh
 # Change user background
-cp /vagrant/installers/nos3_background.png /usr/share/backgrounds/
-chmod 644 /usr/share/backgrounds/nos3_background.png >> /etc/profile.d/all_users.sh
+# cp /vagrant/installers/nos3_background.png /usr/share/backgrounds/
+# chmod 644 /usr/share/backgrounds/nos3_background.png >> /etc/profile.d/all_users.sh
 echo "gsettings set org.gnome.desktop.background picture-uri \"file:///usr/share/backgrounds/nos3_background.png\"" >> /etc/profile.d/all_users.sh
 # Change default zoom level
 echo "gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'" >> /etc/profile.d/all_users.sh
