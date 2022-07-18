@@ -16,7 +16,7 @@ echo "--- "
 if [[ -d /vagrant ]]; then
   NOS3_USER=nos3
 else
-  NOS3_USER=$(logname)
+  NOS3_USER=nos3
 fi
 export BOOST_VERSION=1.65
 export DEBIAN_FRONTEND=noninteractive
@@ -32,7 +32,7 @@ echo "Copy NOS3 to ~/nos3..."
     cp -R /vagrant_parent /home/$NOS3_USER/nos3
     else
     cd ..
-    cp -R /$(pwd) /home/$NOS3_USER/nos3
+    cp -R /$(pwd)/ /home/$NOS3_USER/nos3
     fi
     chown -R $NOS3_USER:$NOS3_USER /home/$NOS3_USER/nos3 
     chmod -R 755 /home/$NOS3_USER/nos3
