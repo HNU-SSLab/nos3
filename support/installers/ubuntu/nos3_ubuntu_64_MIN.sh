@@ -21,18 +21,18 @@ fi
 export BOOST_VERSION=1.65
 export DEBIAN_FRONTEND=noninteractive
 
-echo "Archive old versions of NOS3..."
-    NOW=$(date +%Y%m%d)
-    if [[ -d ~/nos3 ]]; then
-    mv -f ~/nos3 ~/nos3_archived_$NOW
-    fi
+# echo "Archive old versions of NOS3..."
+#     NOW=$(date +%Y%m%d)
+#     if [[ -d ~/nos3 ]]; then
+#     mv -f ~/nos3 ~/nos3_archived_$NOW
+#     fi
 
 echo "Copy NOS3 to ~/nos3..."
     if [[ -d /vagrant ]]; then
     cp -R /vagrant_parent /home/$NOS3_USER/nos3
     else
     cd ..
-    cp -R /$(pwd)/ /home/$NOS3_USER/nos3
+    cp -R /$(pwd)/nos3/ /home/$NOS3_USER/nos3/
     fi
     chown -R $NOS3_USER:$NOS3_USER /home/$NOS3_USER/nos3 
     chmod -R 755 /home/$NOS3_USER/nos3
