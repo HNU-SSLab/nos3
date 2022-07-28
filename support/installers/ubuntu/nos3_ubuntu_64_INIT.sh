@@ -22,8 +22,13 @@ apt-get -y update 1> /dev/null
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade 1> /dev/null
 apt-get -y install linux-headers-$(uname -r) 1> /dev/null # Headers needed for Guest Additions
 
-# echo "Install the desktop..."
+echo "Install the desktop..."
 # Ubuntu Desktop
+apt-get -y install --no-install-recommends ubuntu-desktop xrdp xfce4 xfce4-goodies
+cp /home/ubuntu/.xsession /etc/skel
+chmod a+x ~/.xsession
+sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
+systemctl restart xrdp
 # apt-get -y dist-upgrade 1> /dev/null
 # apt-get -y install --no-install-recommends ubuntu-desktop 1> /dev/null
 # apt-get -y install indicator-session gnome-terminal firefox unity-lens-applications 1> /dev/null 
