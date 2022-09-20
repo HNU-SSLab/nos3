@@ -24,7 +24,15 @@ apt-get -y install linux-headers-$(uname -r) 1> /dev/null # Headers needed for G
 
 apt-get -y dist-upgrade 1> /dev/null
 # apt-get -y install --no-install-recommends ubuntu-desktop 1> /dev/null
-# apt-get -y install indicator-session gnome-terminal firefox unity-lens-applications 1> /dev/null 
+# apt-get -y install indicator-session gnome-terminal firefox unity-lens-applications 1> /dev/null
+
+echo "Install the desktop..."
+# Ubuntu Desktop
+apt-get -y install --no-install-recommends ubuntu-desktop firefox dbus-x11
+cp /home1/ncloud/.xsession /etc/skel
+chmod a+x ~/.xsession
+sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
+systemctl restart xrdp
 
 echo "Update locale..."
 locale-gen --purge en_US.UTF-8 1> /dev/null
@@ -53,14 +61,6 @@ echo 'nos3 ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/nos3; chmod 440 /etc/sudoers
 # usermod -a -G vboxsf nos3
 # Add nos3 user to dialout group
 # usermod -a -G dialout nos3
-
-echo "Install the desktop..."
-# Ubuntu Desktop
-apt-get -y install --no-install-recommends firefox dbus-x11
-cp /home1/ncloud/.xsession /etc/skel
-chmod a+x ~/.xsession
-sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
-systemctl restart xrdp
 
 #echo "Preferences..."
 # Launch executable shell scripts instead of display 
