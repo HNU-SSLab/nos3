@@ -56,8 +56,8 @@ echo 'nos3 ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/nos3; chmod 440 /etc/sudoers
 
 echo "Install the desktop..."
 # Ubuntu Desktop
-apt-get -y install --no-install-recommends ubuntu-desktop xrdp xfce4 xfce4-goodies
-cp /home/nos3/.xsession /etc/skel
+apt-get -y install --no-install-recommends firefox dbus-x11
+cp /home1/ncloud/.xsession /etc/skel
 chmod a+x ~/.xsession
 sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
 systemctl restart xrdp
