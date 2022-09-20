@@ -25,7 +25,7 @@ apt-get -y install linux-headers-$(uname -r) 1> /dev/null # Headers needed for G
 echo "Install the desktop..."
 # Ubuntu Desktop
 apt-get -y install --no-install-recommends ubuntu-desktop xrdp xfce4 xfce4-goodies
-cp /home/ubuntu/.xsession /etc/skel
+cp /home1/ncloud/.xsession /etc/skel
 chmod a+x ~/.xsession
 sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
 systemctl restart xrdp
@@ -44,7 +44,7 @@ grep 'soft.*core.*unlimited' /etc/security/limits.conf &> /dev/null || (echo '* 
 sed -i 's/kernel.yama.ptrace_scope = 1/kernel.yama.ptrace_scope = 0/' /etc/sysctl.d/10-ptrace.conf
 
 echo "Adjusting users..."
-id -u ubuntu &> /dev/null && deluser --remove-home ubuntu
+#id -u ubuntu &> /dev/null && deluser --remove-home ubuntu
 # Create user - `mkpasswd -m sha-512 <<< password`
 id -u nos3 &> /dev/null || (adduser --disabled-password --gecos "" nos3 ; \
 echo 'nos3:$6$.mG1a/zL$f1LcckhnvYRUxQZrGeWVBh.nNAJu9qNIX9v1zvivsc67SjqGapbXNFS4e2/uInkqSas64WwmBRJ45uqSB.nSZ1' | chpasswd -e; \
@@ -61,12 +61,12 @@ grep 'allow-guest=false' /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf &> /de
 # Add nos3 user to dialout group
 # usermod -a -G dialout nos3
 
-echo "Preferences..."
+#echo "Preferences..."
 # Launch executable shell scripts instead of display 
-echo "gsettings set org.gnome.nautilus.preferences executable-text-activation launch" >> /etc/profile.d/all_users.sh
+#echo "gsettings set org.gnome.nautilus.preferences executable-text-activation launch" >> /etc/profile.d/all_users.sh
 # Change user background
 # cp /vagrant/installers/nos3_background.png /usr/share/backgrounds/
 # chmod 644 /usr/share/backgrounds/nos3_background.png >> /etc/profile.d/all_users.sh
-echo "gsettings set org.gnome.desktop.background picture-uri \"file:///usr/share/backgrounds/nos3_background.png\"" >> /etc/profile.d/all_users.sh
+#echo "gsettings set org.gnome.desktop.background picture-uri \"file:///usr/share/backgrounds/nos3_background.png\"" >> /etc/profile.d/all_users.sh
 # Change default zoom level
-echo "gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'" >> /etc/profile.d/all_users.sh
+#echo "gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'" >> /etc/profile.d/all_users.sh
