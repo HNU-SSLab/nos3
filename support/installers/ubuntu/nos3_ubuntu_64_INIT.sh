@@ -22,14 +22,7 @@ apt-get -y update 1> /dev/null
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade 1> /dev/null
 apt-get -y install linux-headers-$(uname -r) 1> /dev/null # Headers needed for Guest Additions
 
-echo "Install the desktop..."
-# Ubuntu Desktop
-apt-get -y install --no-install-recommends ubuntu-desktop xrdp xfce4 xfce4-goodies
-cp /home1/ncloud/.xsession /etc/skel
-chmod a+x ~/.xsession
-sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
-systemctl restart xrdp
-# apt-get -y dist-upgrade 1> /dev/null
+apt-get -y dist-upgrade 1> /dev/null
 # apt-get -y install --no-install-recommends ubuntu-desktop 1> /dev/null
 # apt-get -y install indicator-session gnome-terminal firefox unity-lens-applications 1> /dev/null 
 
@@ -50,9 +43,9 @@ id -u nos3 &> /dev/null || (adduser --disabled-password --gecos "" nos3 ; \
 echo 'nos3:$6$.mG1a/zL$f1LcckhnvYRUxQZrGeWVBh.nNAJu9qNIX9v1zvivsc67SjqGapbXNFS4e2/uInkqSas64WwmBRJ45uqSB.nSZ1' | chpasswd -e; \
 echo 'nos3 ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/nos3; chmod 440 /etc/sudoers.d/nos3)
 # Disable guest
-grep 'allow-guest=false' /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf &> /dev/null || \
-  [ -e /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf ] && \
-  echo 'allow-guest=false' >> /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf 
+# grep 'allow-guest=false' /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf &> /dev/null || \
+#   [ -e /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf ] && \
+#   echo 'allow-guest=false' >> /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf 
 # Hide vagrant user from login screen
 # echo "[User]" >> /var/lib/AccountsService/users/vagrant
 # echo "SystemAccount=true" >> /var/lib/AccountsService/users/vagrant
@@ -60,6 +53,14 @@ grep 'allow-guest=false' /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf &> /de
 # usermod -a -G vboxsf nos3
 # Add nos3 user to dialout group
 # usermod -a -G dialout nos3
+
+echo "Install the desktop..."
+# Ubuntu Desktop
+apt-get -y install --no-install-recommends ubuntu-desktop xrdp xfce4 xfce4-goodies
+cp /home/nos3/.xsession /etc/skel
+chmod a+x ~/.xsession
+sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
+systemctl restart xrdp
 
 #echo "Preferences..."
 # Launch executable shell scripts instead of display 
