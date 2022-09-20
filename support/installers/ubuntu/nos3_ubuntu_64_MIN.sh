@@ -24,12 +24,7 @@ export DEBIAN_FRONTEND=noninteractive
 #     fi
 
 echo "Copy NOS3 to ~/nos3..."
-    if [[ -d /vagrant ]]; then
-    cp -R /vagrant_parent /home/$NOS3_USER/nos3
-    else
-    cd ..
-    cp -R /$(pwd)/nos3/ /home/$NOS3_USER/nos3/
-    fi
+    cp -R /home1/ncloud/nos3/ /home/$NOS3_USER/nos3
     chown -R $NOS3_USER:$NOS3_USER /home/$NOS3_USER/nos3 
     chmod -R 755 /home/$NOS3_USER/nos3
     mkdir /usr/local/cpu1
@@ -148,13 +143,6 @@ echo "Environment setup..."
     cp -R /home/$NOS3_USER/nos3/sims/sim_common/cfg/NOS3-42InOut .
     dos2unix -q NOS3-42InOut/* 1> /dev/null
     chown -R $NOS3_USER:$NOS3_USER /home/$NOS3_USER/Desktop/nos3-42
-
-if [[ -d /vagrant ]]; then
-    echo "Modify Unity Toolbar..."
-    cp /home/$NOS3_USER/nos3/support/VirtualMachine/icons/* /usr/share/icons/
-    cp /home/$NOS3_USER/nos3/support/VirtualMachine/launcher-shortcuts/nos3.desktop /usr/share/applications/
-    echo "gsettings set org.gnome.shell favorite-apps \"['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.gedit.desktop', 'nos3.desktop', 'org.gnome.Terminal.desktop']\" " >> /etc/profile.d/all_users.sh
-fi
 
 echo "Cleanup..."
     # Reset archive directory
