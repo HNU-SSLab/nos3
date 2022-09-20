@@ -13,11 +13,7 @@ echo "--- nos3_ubuntu_64_MIN.sh ---"
 echo "--- "
 
 # Initialize variables
-if [[ -d /vagrant ]]; then
-  NOS3_USER=nos3
-else
-  NOS3_USER=nos3
-fi
+export NOS3_USER=nos3
 export BOOST_VERSION=1.65
 export DEBIAN_FRONTEND=noninteractive
 
