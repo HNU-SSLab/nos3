@@ -13,22 +13,18 @@ echo "--- nos3_ubuntu_64_MIN.sh ---"
 echo "--- "
 
 # Initialize variables
-export NOS3_USER=nos3
+if [[ -d /home1/ncloud ]]; then
+  NOS3_USER=nos3
+else
+  NOS3_USER=$(logname)
+fi
 export BOOST_VERSION=1.65
 export DEBIAN_FRONTEND=noninteractive
 
-# echo "Archive old versions of NOS3..."
-#     NOW=$(date +%Y%m%d)
-#     if [[ -d ~/nos3 ]]; then
-#     mv -f ~/nos3 ~/nos3_archived_$NOW
-#     fi
-
 echo "Copy NOS3 to ~/nos3..."
-    cp -R /home1/ncloud/nos3/ /home/$NOS3_USER/nos3
+    cp -R $(pwd)/nos3 /home/$NOS3_USER/nos3
     chown -R $NOS3_USER:$NOS3_USER /home/$NOS3_USER/nos3 
     chmod -R 755 /home/$NOS3_USER/nos3
-    mkdir /usr/local/cpu1
-    chown -R $NOS3_USER:$NOS3_USER /usr/local/cpu*
 
 echo "Baseline..."
     apt-get update 1> /dev/null
@@ -143,6 +139,13 @@ echo "Environment setup..."
     cp -R /home/$NOS3_USER/nos3/sims/sim_common/cfg/NOS3-42InOut .
     dos2unix -q NOS3-42InOut/* 1> /dev/null
     chown -R $NOS3_USER:$NOS3_USER /home/$NOS3_USER/Desktop/nos3-42
+
+if [[ -d /vagrant ]]; then
+    echo "Modify Unity Toolbar..."
+    cp /home/$NOS3_USER/nos3/support/VirtualMachine/icons/* /usr/share/icons/
+    cp /home/$NOS3_USER/nos3/support/VirtualMachine/launcher-shortcuts/nos3.desktop /usr/share/applications/
+    echo "gsettings set org.gnome.shell favorite-apps \"['org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.gedit.desktop', 'nos3.desktop', 'org.gnome.Terminal.desktop']\" " >> /etc/profile.d/all_users.sh
+fi
 
 echo "Cleanup..."
     # Reset archive directory
