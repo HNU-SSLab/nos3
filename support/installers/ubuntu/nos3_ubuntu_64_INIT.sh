@@ -22,6 +22,14 @@ apt-get -y update 1> /dev/null
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade 1> /dev/null
 apt-get -y install linux-headers-$(uname -r) 1> /dev/null # Headers needed for Guest Additions
 
+echo "Install the desktop..."
+ # Ubuntu Desktop
+ apt-get -y install --no-install-recommends ubuntu-desktop firefox dbus-x11
+ cp /home1/ncloud/.xsession /etc/skel
+ chmod a+x ~/.xsession
+ sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
+ systemctl restart xrdp
+ 
 # echo "Install the desktop..."
 # # Ubuntu Desktop
 # apt-get -y dist-upgrade 1> /dev/null
