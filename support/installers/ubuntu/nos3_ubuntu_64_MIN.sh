@@ -34,9 +34,6 @@ echo "Baseline..."
     # EPS Sim GUI Fix
     apt-get install -y libgnomeui-0 1> /dev/null 
 
-    # baseline - x86_64 
-    #apt-get install -y libfltk1.1-dev 1> /dev/null
-
     # googletest - x86_64
     mkdir /usr/src/googletest/build
     cd /usr/src/googletest/build
@@ -60,10 +57,6 @@ echo "Baseline..."
     mv /usr/src/googletest/build32/googlemock/gtest/libg* /usr/lib/i386-linux-gnu/
 
 echo "Boost..."
-    # boost x86_64
-    #apt-get install -y libboost-date-time$BOOST_VERSION-dev libboost-chrono$BOOST_VERSION-dev  libboost-filesystem$BOOST_VERSION-dev libboost-program-options$BOOST_VERSION-dev libboost-regex$BOOST_VERSION-dev libboost-system$BOOST_VERSION-dev  libboost-thread$BOOST_VERSION-dev 1> /dev/null
-    #apt-get install -y libxerces-c-dev libboost-chrono-dev libboost-program-options-dev  libboost-system-dev 1> /dev/null
-
     # boost i386
     apt-get install -y libboost$BOOST_VERSION-dev:i386 1> /dev/null
     apt-get install -y libboost-date-time$BOOST_VERSION-dev:i386 libboost-chrono$BOOST_VERSION-dev:i386  libboost-filesystem$BOOST_VERSION-dev:i386 libboost-program-options$BOOST_VERSION-dev:i386 libboost-regex$BOOST_VERSION-dev:i386 libboost-system$BOOST_VERSION-dev:i386  libboost-thread$BOOST_VERSION-dev:i386 1> /dev/null
