@@ -23,18 +23,11 @@ DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -
 apt-get -y install linux-headers-$(uname -r) 1> /dev/null # Headers needed for Guest Additions
 
 echo "Install the desktop..."
- # Ubuntu Desktop
- apt-get -y install --no-install-recommends ubuntu-desktop firefox dbus-x11
- cp /home1/ncloud/.xsession /etc/skel
- chmod a+x ~/.xsession
- sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
- systemctl restart xrdp
- 
-# echo "Install the desktop..."
-# # Ubuntu Desktop
-# apt-get -y dist-upgrade 1> /dev/null
-# apt-get -y install --no-install-recommends ubuntu-desktop 1> /dev/null
-# apt-get -y install indicator-session gnome-terminal firefox unity-lens-applications 1> /dev/null 
+# Ubuntu Desktop
+apt-get -y dist-upgrade 1> /dev/null
+apt-get -y install --no-install-recommends ubuntu-desktop xfce4 xrdp xfce4-goodies
+echo xfce4-session > ~/.xsession
+service xrdp restart
 
 echo "Update locale..."
 locale-gen --purge en_US.UTF-8 1> /dev/null
@@ -52,6 +45,7 @@ echo "Adjusting users..."
 id -u nos3 &> /dev/null || (adduser --disabled-password --gecos "" nos3 ; \
 echo 'nos3:$6$.mG1a/zL$f1LcckhnvYRUxQZrGeWVBh.nNAJu9qNIX9v1zvivsc67SjqGapbXNFS4e2/uInkqSas64WwmBRJ45uqSB.nSZ1' | chpasswd -e; \
 echo 'nos3 ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/nos3; chmod 440 /etc/sudoers.d/nos3)
+
 # Disable guest
 # grep 'allow-guest=false' /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf &> /dev/null || \
 #   [ -e /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf ] && \
@@ -63,13 +57,3 @@ echo 'nos3 ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/nos3; chmod 440 /etc/sudoers
 # usermod -a -G vboxsf nos3
 # Add nos3 user to dialout group
 # usermod -a -G dialout nos3
-
-# echo "Preferences..."
-# Launch executable shell scripts instead of display 
-# echo "gsettings set org.gnome.nautilus.preferences executable-text-activation launch" >> /etc/profile.d/all_users.sh
-# Change user background
-# cp /vagrant/installers/nos3_background.png /usr/share/backgrounds/
-# chmod 644 /usr/share/backgrounds/nos3_background.png >> /etc/profile.d/all_users.sh
-# echo "gsettings set org.gnome.desktop.background picture-uri \"file:///usr/share/backgrounds/nos3_background.png\"" >> /etc/profile.d/all_users.sh
-# Change default zoom level
-# echo "gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'" >> /etc/profile.d/all_users.sh
