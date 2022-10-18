@@ -25,9 +25,8 @@ apt-get -y install linux-headers-$(uname -r) 1> /dev/null # Headers needed for G
 echo "Install the desktop..."
 # Ubuntu Desktop
 apt-get -y dist-upgrade 1> /dev/null
-apt-get -y install --no-install-recommends ubuntu-desktop xfce4 xrdp xfce4-goodies
+apt-get -y install --no-install-recommends xrdp xfce4
 echo xfce4-session > ~/.xsession
-service xrdp restart
 
 echo "Update locale..."
 locale-gen --purge en_US.UTF-8 1> /dev/null
