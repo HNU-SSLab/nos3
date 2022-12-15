@@ -43,6 +43,7 @@ sudo su $NOS3_USER << `EOF`
 
     # Install gems
     echo 'gem: --no-ri --no-rdoc' >> /home/$NOS3_USER/.gemrc
+    gem update --system
     gem install ruby-termios -v 0.9.6 1> /dev/null
     gem install rake -v 12.3.2 1> /dev/null
     gem install bundler -v 1.3.0 1> /dev/null
