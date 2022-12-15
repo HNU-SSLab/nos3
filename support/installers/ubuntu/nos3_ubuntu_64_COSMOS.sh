@@ -13,7 +13,7 @@ echo "--- nos3_ubuntu_64_COSMOS.sh ---"
 echo "--- "
 
 # Initialize variables
-if [[ -d /vagrant ]]; then
+if [[ -d /home1/ncloud ]]; then
   NOS3_USER=nos3
 else
   NOS3_USER=$(logname)
